@@ -1,0 +1,32 @@
+on early-init
+   setprop ro.sf.lcd_density 400
+
+on init
+
+on early-fs
+
+on fs
+
+on post-fs
+
+on post-fs-data
+
+on early-boot
+	write /sys/bus/platform/drivers/huawei,altek6045/firmware /system/miniisp/X1S/
+	service HwCamCfgSvr /system/bin/HwCamCfgSvr hi3635 GEMINI
+	class main
+	user media
+	group audio camera inet net_bt net_bt_admin net_bw_acct drmrpc mediadrm system
+
+on boot
+   setprop hw.lcd.density 400
+   service tempmonitor /system/bin/tempmonitor 53 55
+     class main
+     user root
+     group system
+
+	chown system system /sys/touchscreen/easy_wakeup_gesture
+on property:persist.sys.tp.dclick_swakeup=1
+	write /sys/touchscreen/easy_wakeup_gesture 1
+on property:persist.sys.tp.dclick_swakeup=0
+	write /sys/touchscreen/easy_wakeup_gesture 0
